@@ -4,8 +4,15 @@
 
 본 프로젝트는 React를 사용하여 간단한 포켓몬 도감을 구현하는 웹 애플리케이션입니다.<p> 사용자는 포켓몬 목록을 확인하고, 마음에 드는 포켓몬을 선택하여 자신의 포켓몬 목록에 추가하고 삭제할 수 있습니다. <p>선택한 포켓몬의 상세 정보를 모달 창을 통해 확인할 수 있으며, 같은 포켓몬을 중복해서 선택하는 것을 방지합니다.
 
-### 사용 언어 및 기술
+### 사용화면
+<img src="https://github.com/user-attachments/assets/06022652-c5e4-4244-91d2-4d2da2cc88e9" width="400" alt="0 -홈페이지">
+<img src="https://github.com/user-attachments/assets/3023f314-2b8f-4836-88b2-da69d062b46d" width="400" alt="1 -포켓몬-선택">
+<img src="https://github.com/user-attachments/assets/31c84b3e-cd1c-499b-b793-3f633999bf40" width="400" alt="2 -포켓몬-삭제">
+<img src="https://github.com/user-attachments/assets/7295fba6-8dae-4dd5-8abb-5e5c277fcbf2" width="400" alt="3  선택 핸들링">
+<img src="https://github.com/user-attachments/assets/5568cbf7-9844-43cc-8361-0d68866f6223" width="400" alt="4 -모달창">
 
+
+### 사용 언어 및 기술
 | 언어/기술             | 이미지                                                                                                                             | 설명                                                                                                                                                    |
 | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **JavaScript**        | <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" width="32" height="32">                         | 웹 페이지의 동적인 기능을 구현하는 데 사용되는 주요 프로그래밍 언어입니다.                                                                              |
