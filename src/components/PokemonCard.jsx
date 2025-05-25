@@ -11,7 +11,7 @@ const Card = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  cursor: pointer; /* 클릭 가능하도록 커서 변경 */
+  cursor: pointer; /* 카드 전체 클릭 가능하도록 */
 `;
 
 const Img = styled.img`
@@ -49,6 +49,7 @@ const Description = styled.p`
   color: #666;
   font-size: 0.9em;
 `;
+
 const AddButton = styled.button`
   background-color: #4caf50;
   color: white;
@@ -71,9 +72,10 @@ function PokemonCard({
   description,
   onAddToMyPokemon,
   pokemon,
-  onCardClick, // 부모로부터 전달받을 카드 클릭 핸들러
+  onCardClick,
 }) {
-  const handleAddButtonClick = () => {
+  const handleAddButtonClick = (event) => {
+    event.stopPropagation(); // 버튼 클릭 시 카드 클릭 이벤트 막기
     if (onAddToMyPokemon) {
       onAddToMyPokemon(pokemon);
     } else {
@@ -83,14 +85,12 @@ function PokemonCard({
 
   const handleCardClick = () => {
     if (onCardClick) {
-      onCardClick(pokemon); // 부모 컴포넌트로 포켓몬 객체 전달
+      onCardClick(pokemon);
     }
   };
 
   return (
     <Card onClick={handleCardClick}>
-      {" "}
-      {/* Card 전체 클릭 시 모달 표시 */}
       <Img src={imageUrl} alt={name} />
       <Name>{name}</Name>
       <Number>No. {number}</Number>
