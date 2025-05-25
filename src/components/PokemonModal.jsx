@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { PokemonContext } from "../../src/context/pokemonContext";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -75,24 +76,32 @@ const CloseButton = styled.button`
   }
 `;
 
-function PokemonModal({ pokemon, onClose }) {
-  if (!pokemon) {
+function PokemonModal() {
+  const { isModalOpen, selectedPokemonForModal, handleCloseModal } =
+    useContext(PokemonContext);
+
+  if (!isModalOpen || !selectedPokemonForModal) {
     return null;
   }
 
   return (
-    <ModalOverlay onClick={onClose}>
+    <ModalOverlay onClick={handleCloseModal}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        <Img src={pokemon.img_url} alt={pokemon.korean_name} />
-        <Name>{pokemon.korean_name}</Name>
-        <Number>No. {pokemon.id}</Number>
+        <Img
+          src={selectedPokemonForModal.img_url}
+          alt={selectedPokemonForModal.korean_name}
+        />
+        <Name>{selectedPokemonForModal.korean_name}</Name>
+        <Number>No. {selectedPokemonForModal.id}</Number>
         <Types>
-          {pokemon.types.map((type, index) => (
+          {selectedPokemonForModal.types.map((type, index) => (
             <Type key={index}>{type}</Type>
           ))}
         </Types>
-        <Description>{pokemon.description}</Description>
-        <CloseButton onClick={onClose}>닫기</CloseButton>
+        {selectedPokemonForModal.description && (
+          <Description>{selectedPokemonForModal.description}</Description>
+        )}
+        <CloseButton onClick={handleCloseModal}>닫기</CloseButton>
       </ModalContent>
     </ModalOverlay>
   );

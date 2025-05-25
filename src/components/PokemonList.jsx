@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+// src/components/PokemonList.jsx
+import React, { useContext } from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
-import { MOCK_DATA } from "../assets/mock";
-import PokemonModal from "./PokemonModal";
+import { MOCK_DATA } from "../../src/assets/mock";
+import { PokemonContext } from "../../src/context/pokemonContext";
 
 const ListContainer = styled.div`
   display: grid;
@@ -18,19 +19,8 @@ const ListContainer = styled.div`
   padding: 20px;
 `;
 
-function PokemonList({ onPokemonSelect }) {
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleCardClick = (pokemon) => {
-    setSelectedPokemon(pokemon);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedPokemon(null);
-  };
+function PokemonList() {
+  const { handlePokemonSelect, handleCardClick } = useContext(PokemonContext);
 
   return (
     <ListContainer>
@@ -43,13 +33,10 @@ function PokemonList({ onPokemonSelect }) {
           number={pokemon.id}
           description={pokemon.description}
           pokemon={pokemon}
-          onAddToMyPokemon={onPokemonSelect}
-          onCardClick={handleCardClick} // 클릭 이벤트 핸들러 전달
+          onAddToMyPokemon={handlePokemonSelect}
+          onCardClick={handleCardClick}
         />
       ))}
-      {isModalOpen && (
-        <PokemonModal pokemon={selectedPokemon} onClose={handleCloseModal} />
-      )}
     </ListContainer>
   );
 }
