@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import MyPokemonTitle from "../components/MyPokemonTitle";
 import SelectedPokemon from "../components/SelectedPokemonList";
 import PokemonList from "../components/PokemonList";
+import PokemonModal from "../components/PokemonModal";
 
 const Container = styled.div`
   display: flex;
@@ -36,49 +37,16 @@ const SectionContainer2 = styled.div`
 `;
 
 function PokedexPage() {
-  const [selectedPokemons, setSelectedPokemons] = useState(Array(6).fill(null));
-  const MAX_POKEMONS = 6;
-
-  const handlePokemonSelect = (pokemon) => {
-    // 이미 선택된 포켓몬인지 확인
-    const isAlreadySelected = selectedPokemons.some(
-      (selected) => selected && selected.id === pokemon.id
-    );
-
-    if (isAlreadySelected) {
-      alert(`${pokemon.korean_name}은 이미 선택되었습니다.`);
-      return;
-    }
-
-    const updatedPokemons = [...selectedPokemons];
-    const firstEmptySlotIndex = updatedPokemons.findIndex((p) => p === null);
-
-    if (firstEmptySlotIndex !== -1) {
-      updatedPokemons[firstEmptySlotIndex] = pokemon;
-      setSelectedPokemons(updatedPokemons);
-    } else {
-      alert(`최대 ${MAX_POKEMONS}마리까지만 선택할 수 있습니다.`);
-    }
-  };
-
-  const handleDeletePokemon = (index) => {
-    const updatedPokemons = [...selectedPokemons];
-    updatedPokemons[index] = null;
-    setSelectedPokemons(updatedPokemons);
-  };
-
   return (
     <Container>
       <SectionContainer1>
         <MyPokemonTitle />
-        <SelectedPokemon
-          pokemons={selectedPokemons}
-          onDeletePokemon={handleDeletePokemon}
-        />
+        <SelectedPokemon />
       </SectionContainer1>
       <SectionContainer2>
-        <PokemonList onPokemonSelect={handlePokemonSelect} />
+        <PokemonList />
       </SectionContainer2>
+      <PokemonModal />
     </Container>
   );
 }

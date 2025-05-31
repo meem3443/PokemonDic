@@ -1,8 +1,10 @@
 // src/components/PokemonList.jsx
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
-import { MOCK_DATA } from "../assets/mock";
+import { MOCK_DATA } from "../../src/assets/mock";
+import { PokemonContext } from "../../src/context/pokemonContext";
+import PokemonModal from "./PokemonModal"; // 필요하다면 import 유지
 
 const ListContainer = styled.div`
   display: grid;
@@ -18,7 +20,15 @@ const ListContainer = styled.div`
   padding: 20px;
 `;
 
-function PokemonList({ onPokemonSelect }) {
+function PokemonList() {
+  const {
+    handlePokemonSelect,
+    handleCardClick,
+    isModalOpen,
+    selectedPokemonForModal,
+    handleCloseModal,
+  } = useContext(PokemonContext);
+
   return (
     <ListContainer>
       {MOCK_DATA.map((pokemon) => (
@@ -30,9 +40,16 @@ function PokemonList({ onPokemonSelect }) {
           number={pokemon.id}
           description={pokemon.description}
           pokemon={pokemon}
-          onAddToMyPokemon={onPokemonSelect}
+          onAddToMyPokemon={handlePokemonSelect}
+          onCardClick={handleCardClick} // Context에서 가져온 페이지 이동 함수 전달
         />
       ))}
+      {isModalOpen && (
+        <PokemonModal
+          pokemon={selectedPokemonForModal}
+          onClose={handleCloseModal}
+        />
+      )}
     </ListContainer>
   );
 }

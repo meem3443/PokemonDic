@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import pokeballImage from "../../src/assets/pokeball.png"; // 포켓볼 이미지 import (경로 확인)
+import pokeballImage from "../../src/assets/pokeball.png";
+import { PokemonContext } from "../../src/context/pokemonContext";
 
 const ListContainer = styled.div`
   display: flex;
@@ -74,10 +75,12 @@ const DeleteButton = styled.button`
   }
 `;
 
-function SelectedPokemonList({ pokemons, onDeletePokemon }) {
+function SelectedPokemonList() {
+  const { selectedPokemons, handleDeletePokemon } = useContext(PokemonContext);
+
   return (
     <ListContainer>
-      {pokemons.map((pokemon, index) => (
+      {selectedPokemons.map((pokemon, index) => (
         <PokemonItem key={index}>
           <Img
             src={pokemon ? pokemon.img_url : pokeballImage}
@@ -94,7 +97,7 @@ function SelectedPokemonList({ pokemons, onDeletePokemon }) {
                   ))}
                 </Types>
               )}
-              <DeleteButton onClick={() => onDeletePokemon(index)}>
+              <DeleteButton onClick={() => handleDeletePokemon(index)}>
                 삭제
               </DeleteButton>
             </>
