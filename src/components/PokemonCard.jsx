@@ -1,7 +1,10 @@
+// src/components/PokemonCard.jsx
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const Card = styled.div`
+const Card = styled(Link)`
+  // Link 컴포넌트를 styled-components로 감싸기
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 15px;
@@ -11,7 +14,13 @@ const Card = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  cursor: pointer; /* 카드 전체 클릭 가능하도록 */
+  text-decoration: none; /* 링크 밑줄 제거 */
+  color: inherit; /* 링크 색상 상속 */
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 const Img = styled.img`
@@ -49,7 +58,6 @@ const Description = styled.p`
   color: #666;
   font-size: 0.9em;
 `;
-
 const AddButton = styled.button`
   background-color: #4caf50;
   color: white;
@@ -72,25 +80,12 @@ function PokemonCard({
   description,
   onAddToMyPokemon,
   pokemon,
-  onCardClick,
+  // onCardClick prop은 이제 사용하지 않습니다.
 }) {
-  const handleAddButtonClick = (event) => {
-    event.stopPropagation(); // 버튼 클릭 시 카드 클릭 이벤트 막기
-    if (onAddToMyPokemon) {
-      onAddToMyPokemon(pokemon);
-    } else {
-      console.warn("onAddToMyPokemon prop이 전달되지 않았습니다.");
-    }
-  };
-
-  const handleCardClick = () => {
-    if (onCardClick) {
-      onCardClick(pokemon);
-    }
-  };
-
   return (
-    <Card onClick={handleCardClick}>
+    <Card to={`/pokemon/${pokemon.id}`}>
+      {" "}
+      {/* 클릭 시 해당 ID의 상세 페이지로 이동 */}
       <Img src={imageUrl} alt={name} />
       <Name>{name}</Name>
       <Number>No. {number}</Number>
@@ -100,7 +95,16 @@ function PokemonCard({
         ))}
       </Types>
       <Description>{description}</Description>
-      <AddButton onClick={handleAddButtonClick}>선택</AddButton>
+      <AddButton
+        onClick={(e) => {
+          e.preventDefault(); // 링크 이동 막기 (선택 버튼 기능 유지)
+          if (onAddToMyPokemon) {
+            onAddToMyPokemon(pokemon);
+          }
+        }}
+      >
+        선택
+      </AddButton>
     </Card>
   );
 }

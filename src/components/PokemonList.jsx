@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+// src/components/PokemonList.jsx
+import React from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import { MOCK_DATA } from "../assets/mock";
-import PokemonModal from "./PokemonModal";
 
 const ListContainer = styled.div`
   display: grid;
@@ -19,19 +19,6 @@ const ListContainer = styled.div`
 `;
 
 function PokemonList({ onPokemonSelect }) {
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleCardClick = (pokemon) => {
-    setSelectedPokemon(pokemon);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedPokemon(null);
-  };
-
   return (
     <ListContainer>
       {MOCK_DATA.map((pokemon) => (
@@ -44,12 +31,8 @@ function PokemonList({ onPokemonSelect }) {
           description={pokemon.description}
           pokemon={pokemon}
           onAddToMyPokemon={onPokemonSelect}
-          onCardClick={handleCardClick} // 클릭 이벤트 핸들러 전달
         />
       ))}
-      {isModalOpen && (
-        <PokemonModal pokemon={selectedPokemon} onClose={handleCloseModal} />
-      )}
     </ListContainer>
   );
 }
