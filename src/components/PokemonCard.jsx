@@ -75,7 +75,7 @@ function PokemonCard({
   onCardClick,
 }) {
   const handleAddButtonClick = (event) => {
-    event.stopPropagation(); // 버튼 클릭 시 카드 클릭 이벤트 막기
+    event.stopPropagation();
     if (onAddToMyPokemon) {
       onAddToMyPokemon(pokemon);
     } else {
@@ -83,14 +83,8 @@ function PokemonCard({
     }
   };
 
-  const handleCardClick = () => {
-    if (onCardClick) {
-      onCardClick(pokemon);
-    }
-  };
-
   return (
-    <Card onClick={handleCardClick}>
+    <Card onClick={() => onCardClick(pokemon)}>
       <Img src={imageUrl} alt={name} />
       <Name>{name}</Name>
       <Number>No. {number}</Number>
